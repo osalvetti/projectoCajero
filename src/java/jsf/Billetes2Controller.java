@@ -99,9 +99,13 @@ public class Billetes2Controller implements Serializable {
     
     
     public String PreRetiro() {
-
+        
         lista = getFacade().findAll();
         try {
+            valorARetirar = getValorRetiro();
+            if (valorARetirar % 10000 != 0) {
+                throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_16"));
+            }
             for (Billetes2 entidad : lista) {
 
                 if (entidad.getDenominacion() == 10000) {
@@ -114,7 +118,7 @@ public class Billetes2Controller implements Serializable {
                     totalCincuenta = entidad.getDenominacion() * entidad.getCantidad();
                 }
             }
-            valorARetirar = getValorRetiro();
+            
             totalCajero = totalDiez + totalVeinte + totalCincuenta;
             if (totalCajero == 0) {
                 throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_15"));
