@@ -235,7 +235,7 @@ public class Billetes2Controller implements Serializable {
                 cantidadAdd = cantidadAdd + encontrado.getCantidad();
                 current.setCantidad(cantidadAdd);
                 this.update();
-
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Billetes2Updated"));
             }
             items = getPagination().createPageDataModel();
             current = new Billetes2();
@@ -272,7 +272,7 @@ public class Billetes2Controller implements Serializable {
                 this.update();
             }
             
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Billetes2Created"));
+            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Billetes2Created"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -289,7 +289,7 @@ public class Billetes2Controller implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Billetes2Updated"));
+            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("Billetes2Updated"));
             return "index";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -451,6 +451,9 @@ public class Billetes2Controller implements Serializable {
             current.setCantidad(cantidadRes);
             res1 = cantidadDiez + " (10.000) ";
             update();
+        }
+        if(cantidadDiez>0||cantidadVeinte>0||cantidadCincuenta>0){
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TransaccioExitosa"));
         }
         resultado = "         Valor Solicitado: " + valorRetiro; 
         resultado1 = "Billetes Entregados: " + res1 + res2 + res3;
