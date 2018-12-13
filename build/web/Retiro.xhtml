@@ -33,7 +33,8 @@
                 <p:panelGrid columns="1" style="border:solid 1px;width:400px" columnClasses="centered" >
                     <p:inputText id="retiro" value="#{billetes2Controller.valorRetiro}" title="#{bundle.CreateBilletes2Title_denominacion}" 
                                  converterMessage="El valor a retirar debe ser un valor Numerico"
-                                 validatorMessage="El valor a retirar debe ser un valor de 10.000,20.000 o 50.000">
+                                 validatorMessage="El valor a retirar debe ser un valor no superior a 1000000 con multiplos de 10.000"
+                                 maxlength="7">
                         <f:validateLongRange maximum="1000000" minimum="10000"/>
                     </p:inputText>
                     <p:watermark for="retiro" value ="Valor a retirar"/>

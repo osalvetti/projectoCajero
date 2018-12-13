@@ -35,12 +35,11 @@ public class Billetes2 implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull(message = "error: La Denominacion es requerida")
-   
+    @NotNull(message = "La Denominacion es requerida")
     @Column(name = "denominacion")
     private Integer denominacion;
     
-    @NotNull(message = "error: La Cantidad es requerida")
+    @NotNull(message = "La Cantidad es requerida")
     @Column(name = "cantidad")
     private Integer cantidad;
 

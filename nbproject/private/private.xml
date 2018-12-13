@@ -5,6 +5,8 @@
         <group>
             <file>file:/Users/oscarhsalvettig/NetBeansProjects/Cajero/web/index.xhtml</file>
             <file>file:/Users/oscarhsalvettig/NetBeansProjects/Cajero/web/Retiro.xhtml</file>
+            <file>file:/Users/oscarhsalvettig/NetBeansProjects/Cajero/src/java/jsf/Billetes2Controller.java</file>
+            <file>file:/Users/oscarhsalvettig/NetBeansProjects/Cajero/src/java/Bundle.properties</file>
         </group>
     </open-files>
 </project-private>

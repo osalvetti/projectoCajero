@@ -18,11 +18,14 @@
                 <p:panelGrid columns="1" style="border:solid 1px;width:300px" columnClasses="centered" >
                     <p:inputText id="denominacion" value="#{billetes2Controller.selected.denominacion}" title="#{bundle.CreateBilletes2Title_denominacion}" 
                                  converterMessage="La Denominacion debe ser un valor Numerico"
-                                 validatorMessage="La Denominacion debe ser un valor de 10.000,20.000 o 50.000">
+                                 validatorMessage="La Denominacion debe ser un valor de 10.000 20.000 o 50.000" 
+                                 maxlength="5">
                         <f:validateLongRange maximum="50000" minimum="10000"/>
                     </p:inputText>
                     <p:watermark for="denominacion" value ="Denominacion"/>
-                    <p:inputText id="cantidad" value="#{billetes2Controller.selected.cantidad}" title="#{bundle.CreateBilletes2Title_cantidad}" converterMessage="La Cantidad debe ser un valor Numerico"/>
+                    <p:inputText id="cantidad" value="#{billetes2Controller.selected.cantidad}" title="#{bundle.CreateBilletes2Title_cantidad}" 
+                                 converterMessage="La Cantidad debe ser un valor Numerico"
+                                 maxlength="3"/>
                     <p:watermark for="cantidad" value ="Cantidad"/>
                     <p:commandButton id="boton2" action="#{billetes2Controller.preCreate()}" value="#{bundle.CreateBilletes2SaveLink}" style="border:solid 1px;width:160px" update="formaA" />
                 </p:panelGrid>

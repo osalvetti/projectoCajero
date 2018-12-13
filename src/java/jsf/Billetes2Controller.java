@@ -116,6 +116,9 @@ public class Billetes2Controller implements Serializable {
             }
             valorARetirar = getValorRetiro();
             totalCajero = totalDiez + totalVeinte + totalCincuenta;
+            if (totalCajero == 0) {
+                throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_15"));
+            }
             if (totalCajero < valorARetirar) {
                  throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_11"));
             }
@@ -133,10 +136,14 @@ public class Billetes2Controller implements Serializable {
         cantidadCincuenta = 0;
         cantidadVeinte = 0;
         int cantidadDisponible = 0;
+        int cantidadDisponible10 = 0;
+        int cantidadDisponible20 = 0;
+        int cantidadDisponible50 = 0;
             while (true) {
                 if (totalCincuenta > 0) {
                     cantidadCincuenta = valorARetirar / 50000;
                     cantidadDisponible = totalCincuenta / 50000;
+                    cantidadDisponible50 = cantidadDisponible;
                     if (cantidadDisponible >= cantidadCincuenta) {
                         valorARetirar = valorARetirar - (cantidadCincuenta * 50000);
                         if (valorARetirar == 0) {
@@ -150,6 +157,7 @@ public class Billetes2Controller implements Serializable {
                 if (totalVeinte > 0) {
                     cantidadVeinte = valorARetirar / 20000;
                     cantidadDisponible = totalVeinte / 20000;
+                    cantidadDisponible20 = cantidadDisponible;
                     if (cantidadDisponible >= cantidadVeinte) {
                         valorARetirar = valorARetirar - (cantidadVeinte * 20000);
                         if (valorARetirar == 0) {
@@ -165,16 +173,32 @@ public class Billetes2Controller implements Serializable {
                 if (totalDiez > 0) {
                     cantidadDiez = valorARetirar / 10000;
                     cantidadDisponible = totalDiez / 10000;
+                    cantidadDisponible10 = cantidadDisponible;
                     if (cantidadDisponible >= cantidadDiez) {
                         valorARetirar = valorARetirar - ( cantidadDiez * 10000);
                         if (valorARetirar == 0) {
                             break;
-                        }
-                    } else{
+                        } 
+                    } else {
                         throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_12"));
                     }
                 }else {
-                    throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_10"));
+                    if(cantidadDisponible10==0 && cantidadDisponible20==0 && cantidadDisponible50==0){
+                        throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_13"));
+                    }
+                    if(cantidadDisponible10==0 && cantidadDisponible20==0){
+                        throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_14"));
+                    }
+                    if(cantidadDisponible20==0){
+                        throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_10"));
+                    }
+                    if (valorARetirar % 20000 != 0) {
+                        if (cantidadDisponible10 == 0) {
+                            throw new CajeroException(ResourceBundle.getBundle("/Bundle").getString("error_10"));
+                        }
+                    }
+
+
                 }
 
             }
