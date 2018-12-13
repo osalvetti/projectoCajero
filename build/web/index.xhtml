@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBilletes2Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+           
+            <h:form id="formaA">
+                <p:panelGrid columns="1" style="border:solid 1px;width:300px" columnClasses="centered" >
+                    <p:inputText id="denominacion" value="#{billetes2Controller.selected.denominacion}" title="#{bundle.CreateBilletes2Title_denominacion}" 
+                                 converterMessage="La Denominacion debe ser un valor Numerico"
+                                 validatorMessage="La Denominacion debe ser un valor de 10.000,20.000 o 50.000">
+                        <f:validateLongRange maximum="50000" minimum="10000"/>
+                    </p:inputText>
+                    <p:watermark for="denominacion" value ="Denominacion"/>
+                    <p:inputText id="cantidad" value="#{billetes2Controller.selected.cantidad}" title="#{bundle.CreateBilletes2Title_cantidad}" converterMessage="La Cantidad debe ser un valor Numerico"/>
+                    <p:watermark for="cantidad" value ="Cantidad"/>
+                    <p:commandButton id="boton2" action="#{billetes2Controller.preCreate()}" value="#{bundle.CreateBilletes2SaveLink}" style="border:solid 1px;width:160px" update="formaA" />
+                </p:panelGrid>
+               <br />
+               <br />
+               <br />
+                <h:outputText escape="false" value="#{bundle.ListBilletes2Empty}" rendered="#{billetes2Controller.items.rowCount == 0}"/>
+                <h:panelGroup id="panel" rendered="#{billetes2Controller.items.rowCount > 0}">
+                    
+                    <p:dataTable id="table" value="#{billetes2Controller.items}" var="item" sortBy="#{item.denominacion}"  style="border:solid 1px;width:300px" >
+                        <p:column style="width:30px">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBilletes2Title_denominacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.denominacion}">
+                                <f:convertNumber pattern="##,###" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="width:30px">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBilletes2Title_cantidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidad}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup> <br />
+                <br />
+                <ui:remove>
+                <p:commandButton action="Retiro?faces-redirect=true"  value="cajero" immediate="true"/>
+                </ui:remove>
+                <p:commandButton action="#{billetes2Controller.irCajero()}"  value="cajero" immediate="true"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

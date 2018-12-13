@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.RetiroBilletes2Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form id="formaR">
+                <p:panel id="panel1" style="border:solid 1px;width:390px;height:100px;background-color: #b2d5d6" >
+                    <h:outputLabel style="align-content: center;align-self: center;align-items: center;alignment-baseline: central">
+                        #{billetes2Controller.resultado}
+                        
+                    </h:outputLabel>
+                     <br/>
+                    <h:outputLabel >
+                        
+                        #{billetes2Controller.resultado1}
+                    </h:outputLabel>
+
+                    
+                    
+                </p:panel>
+                <br/>
+                <br/>
+                
+                
+                <p:panelGrid columns="1" style="border:solid 1px;width:400px" columnClasses="centered" >
+                    <p:inputText id="retiro" value="#{billetes2Controller.valorRetiro}" title="#{bundle.CreateBilletes2Title_denominacion}" 
+                                 converterMessage="El valor a retirar debe ser un valor Numerico"
+                                 validatorMessage="El valor a retirar debe ser un valor de 10.000,20.000 o 50.000">
+                        <f:validateLongRange maximum="1000000" minimum="10000"/>
+                    </p:inputText>
+                    <p:watermark for="retiro" value ="Valor a retirar"/>
+                    <p:commandButton action="#{billetes2Controller.PreRetiro()}" value="#{bundle.RetiroBilletes2SaveLink}" style="border:solid 1px;width:160px" update="formaR"/>
+                </p:panelGrid>
+               
+               
+                <h:outputText escape="false" value="#{bundle.ListBilletes2Empty}" rendered="#{billetes2Controller.items.rowCount == 0}"/>
+                
+                <br />
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <br />
+                <br />
+                <!--<p:commandButton action="#{billetes2Controller.irAdmon()}" value="Admon" update="@all" immediate="true"/>-->
+                <p:commandButton action="#{billetes2Controller.irAdmon()}" value="Admon" immediate="true"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
